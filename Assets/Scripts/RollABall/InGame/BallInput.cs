@@ -10,6 +10,7 @@ public class BallInput : MonoBehaviour
 
     public GameObject Ball;
     private Rigidbody ballRigidBody;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,19 +88,19 @@ public class BallInput : MonoBehaviour
 
         if (Keyboard.current.wKey.isPressed)
         {
-            Ball.transform.position += Vector3.forward;
+            ballRigidBody.AddForce(Vector3.forward);
         }
         if (Keyboard.current.aKey.isPressed)
         {
-            Ball.transform.position += Vector3.left;
+            ballRigidBody.AddForce(Vector3.left);
         }
         if (Keyboard.current.sKey.isPressed)
         {
-            Ball.transform.position += Vector3.back;
+            ballRigidBody.AddForce(Vector3.back);
         }
         if (Keyboard.current.dKey.isPressed)
         {
-            Ball.transform.position += Vector3.right;
+            ballRigidBody.AddForce(Vector3.right);
         }
     }
 }
