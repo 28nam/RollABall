@@ -11,10 +11,14 @@ public class BallInput : MonoBehaviour
     public GameObject Ball;
     private Rigidbody ballRigidBody;
 
+    public BallController ballController;
+
     // Start is called before the first frame update
     void Start()
     {
+
         ballRigidBody = Ball.GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -86,6 +90,7 @@ public class BallInput : MonoBehaviour
         Debug.Log($"マウスの座標: {mousePosition}");
         **/
 
+        /**
         if (Keyboard.current.wKey.isPressed)
         {
             ballRigidBody.AddForce(Vector3.forward);
@@ -101,6 +106,24 @@ public class BallInput : MonoBehaviour
         if (Keyboard.current.dKey.isPressed)
         {
             ballRigidBody.AddForce(Vector3.right);
+        }
+        **/
+
+        if (Keyboard.current.wKey.isPressed)
+        {
+            ballController.BallMove(Vector3.forward);
+        }
+        if (Keyboard.current.aKey.isPressed)
+        {
+            ballController.BallMove(Vector3.left);
+        }
+        if (Keyboard.current.sKey.isPressed)
+        {
+            ballController.BallMove(Vector3.back);
+        }
+        if (Keyboard.current.dKey.isPressed)
+        {
+            ballController.BallMove(Vector3.right);
         }
     }
 }
