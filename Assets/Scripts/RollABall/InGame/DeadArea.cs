@@ -8,7 +8,9 @@ public class DeadArea : MonoBehaviour
     {
         if (other.name == "Sphere")
         {
-            Debug.Log("Dead");
+            // Sphere ‚ÆÕ“Ë‚µ‚½
+            Destroy(other.gameObject);
+            Debug.Log("Sphere ‚ğ”jŠü‚µ‚Ü‚µ‚½B");
         }
     }
 }
