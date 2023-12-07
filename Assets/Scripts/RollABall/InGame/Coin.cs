@@ -18,6 +18,7 @@ public class Coin : MonoBehaviour
     private CoinState coinState = CoinState.Regular;
 
     private Material coinMaterial; // Vật liệu của đồng xu.
+    private bool bonusScoreReceived = false;
 
     void Start()
     {
@@ -38,25 +39,43 @@ public class Coin : MonoBehaviour
             coinMaterial.color = Color.red;
         }
 
-        yield return new WaitForSeconds(disappearTime - bonusTime);
+        // Thực hiện kiểm tra trước khi thay đổi màu để đảm bảo đồng xu chưa bị hủy.
+        if (gameObject != null)
+        {
+            StartCoroutine(WaitAndDestroy(disappearTime - bonusTime));
+        }
+    }
 
-        Destroy(this.gameObject);
+    IEnumerator WaitAndDestroy(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        // Kiểm tra xem đồng xu đã bị hủy chưa trước khi thực hiện hành động
+        if (gameObject != null)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Sphere")
         {
-            if (coinState == CoinState.Bonus)
+            if (coinState == CoinState.Bonus && !bonusScoreReceived)
             {
                 ScoreManager.ScoreCount += bonusScoreValue;
+                bonusScoreReceived = true;
             }
-            else
+            else if (coinState == CoinState.Regular)
             {
                 ScoreManager.ScoreCount += scoreValue;
             }
 
-            Destroy(gameObject);
+            // Kiểm tra xem đồng xu đã bị hủy chưa trước khi thực hiện hành động
+            if (gameObject != null)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
